@@ -1,8 +1,8 @@
 var express = require('express'),
     path = require('path'),
-    app = express();
+    app = express(),
+    hbs = require('express-handlebars');
 
-var hbs = require('express-handlebars');
 app.engine('handlebars', hbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
@@ -10,7 +10,7 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.route('/welcome')
   .get(function (req, res) {
-    res.render('welcome', { name: "Lee Vining" });
+    res.render('welcome', { name: "Cícero Feijó" });
 });
 
 
