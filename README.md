@@ -1,2 +1,2 @@
 # chat-node-js
-Node JS Chat with Express + Handlebarsjs + SocketIO
+A Chat with NodeJS + Express + Handlebarsjs + SocketIO
