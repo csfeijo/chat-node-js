@@ -3,6 +3,7 @@
   "version" : "0.0.1",
   "dependencies" : {
     "express" : "*",
-    "express-handlebars" : "*"
+    "express-handlebars" : "*",
+    "socket.io" : "1.7.3"
   }
 }
