@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      <h3>Welcome {{name}} </h3>
+      <h4>Your nick: {{nickName}}</h4>
+  </div>
+  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
+    <h3>
+      <button type="button" class="btn btn-default btn-success" id="btn-logout">
+        <i class="fa fa-sign-out"></i>
+        logout
+      </button>
+    </h3>  
+  </div>  
+</div>
+
+<div class="panel panel-default" id="main-chat-dialogs">
+  <div class="panel-body" id="all-messages">
+
+
+
+  </div>
+</div>
+
+<div id="control-chat-panel">
+  <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+    <form id="form-chat-dialog">
+      <div class="form-group">
+        <input type="text" class="form-control" id="message" placeholder="type your text here...">
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+    <button type="button" class="btn bt-default btn-success btn-send-msg" id="btn-send-msg"><i class="fa fa-paper-plane"></i></button>
+  </div>
+  <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+  </div>
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+window.addEventListener('load', function(){
+  var socket = io();
+
+  $('#message').focus();
+
+  $('#form-chat-dialog').submit(function(){
+    return false;
+  });
+
+  var sendMessage = function(){
+    var message = $('#message').val();
+
+    socket.emit('chat-message', { message: message, nickName: "{{nickName}}" } );
+
+    $('#message').val('');
+  };
+
+  $('#message').keypress(function(e) {
+      if(e.which == 13) {
+          if ($(this).val() != '') {
+            sendMessage();
+          }
+      }
+  });
+  $('#btn-send-msg').click(sendMessage);
+
+  socket.on('new-message', function(data){
+    console.log('new-message', data.message);
+
+    $('#all-messages').append('<div class="alert alert-warning"><i class="fa fa-user-circle-o"></i> ' + data.nickName + ':' + data.message + '</div>');
+  });
+
+  // logout
+  $('#btn-logout').click(function(){
+    socket.emit('logout', { nickName: "{{nickName}}" });
+    window.location = '/login';
+  });
+});
+</script>

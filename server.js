@@ -19,13 +19,14 @@ app.route('/login')
   res.render('login', {});
 });
 
-app.post('/chat', function (req, res, next) {
+app.post('/chat', function (req, res, next){
   var nickName = req.body['nick-name'];
   res.render('chat', { name: "to my chat room", nickName: nickName });
 });
 
-// TODO: make a redirect for login when method is GET
-//app.get('/chat')
+app.get('/chat', function(req, res, next){
+  res.redirect('/login');
+});
 
 io.on('connection', function(socket){  
   console.log('user connected');
@@ -36,7 +37,11 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
 
-  socket.on('chat message', function(data){  
+  socket.on('logout', function(){
+    console.log('user logout');
+  });
+
+  socket.on('chat-message', function(data){  
     console.log('nickName: ' + data.nickName, 'message: ' + data.message);
 
     io.emit('new-message', { message: data.message, nickName: data.nickName });
