@@ -4,6 +4,7 @@
   "dependencies" : {
     "express" : "*",
     "express-handlebars" : "*",
-    "socket.io" : "1.7.3"
+    "socket.io" : "1.7.3",
+    "body-parser": "1.16.1"
   }
 }

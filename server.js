@@ -1,4 +1,5 @@
 var express = require('express'),
+    bodyParser = require('body-parser'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
@@ -7,25 +8,38 @@ var express = require('express'),
 
 app.engine('handlebars', hbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/', express.static(path.join(__dirname, 'public')))
 
-app.route('/welcome')
+app.route('/login')
   .get(function (req, res) {
-
-  res.render('welcome', { name: "to my chat room" });
+  res.render('login', {});
 });
 
+app.post('/chat', function (req, res, next) {
+  var nickName = req.body['nick-name'];
+  res.render('chat', { name: "to my chat room", nickName: nickName });
+});
+
+// TODO: make a redirect for login when method is GET
+//app.get('/chat')
+
 io.on('connection', function(socket){  
-  console.log('um usuario conectou');
+  console.log('user connected');
+
+  io.emit('new-message', { message: 'new user logged!', nickName: 'SERVER' });
 
   socket.on('disconnect', function(){
-    console.log('usuario desconectou');
+    console.log('user disconnected');
   });
 
   socket.on('chat message', function(data){  
-    console.log('message: ' + data.message);
+    console.log('nickName: ' + data.nickName, 'message: ' + data.message);
 
-    io.emit('new-message', { message: data.message });
+    io.emit('new-message', { message: data.message, nickName: data.nickName });
   });
 
 });

@@ -1,9 +1,16 @@
+/* Chat Login */
+#chat-login {
+  width: 400px;
+  margin: 40px auto;
+}
+
+/* Main Chat */
 #main-chat-dialogs {
   min-height: 200px;
 }
 
-#control-chat-panel textarea { 
-  height: 74px;
+#control-chat-panel #message { 
+  padding: 38px 10px;
   resize: none;
 }
 
@@ -14,3 +21,4 @@
   border-radius: 100%;
   outline: none;
 }
+
