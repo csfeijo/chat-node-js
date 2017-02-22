@@ -1,8 +1,8 @@
-<h3>Welcome, {{name}} </h3>
+<h3>Welcome {{name}} </h3>
 
 <div class="panel panel-default" id="main-chat-dialogs">
-  <div class="panel-body">
-    
+  <div class="panel-body" id="all-messages">
+
 
 
   </div>
@@ -32,6 +32,14 @@ window.addEventListener('load', function(){
     var message = $('#message').val();
 
     socket.emit('chat message', { message: message } );
+
+    $('#message').val('');
+  });
+
+  socket.on('new-message', function(data){
+    console.log('new-message', data.message);
+
+    $('#all-messages').append(data.message).append('<br>');
   });
 });
 </script>

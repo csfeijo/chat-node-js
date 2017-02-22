@@ -12,7 +12,7 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 app.route('/welcome')
   .get(function (req, res) {
 
-  res.render('welcome', { name: "Cícero Feijó" });
+  res.render('welcome', { name: "to my chat room" });
 });
 
 io.on('connection', function(socket){  
@@ -24,6 +24,8 @@ io.on('connection', function(socket){
 
   socket.on('chat message', function(data){  
     console.log('message: ' + data.message);
+
+    io.emit('new-message', { message: data.message });
   });
 
 });
