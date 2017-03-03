@@ -7,6 +7,14 @@
 /* Main Chat */
 #dialog-chat {
   min-height: 200px;
+  margin-bottom: 140px;
+}
+
+#control-chat-panel {
+  position: fixed;
+  bottom: 0;
+  max-width: 1120px;
+  width: 100%;
 }
 
 #control-chat-panel #message { 
@@ -22,3 +30,6 @@
   outline: none;
 }
 
+
+/* HELPERS */
+.clear { clear: both; }

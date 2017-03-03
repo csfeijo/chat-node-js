@@ -1,6 +1,7 @@
 {{> _header-chat }}
 
 {{> _dialog-chat }}
+{{> _users-list }}
 
 {{> _control-chat-panel }}
 
@@ -14,6 +15,10 @@ window.addEventListener('load', function(){
   $('#form-chat-dialog').submit(function(){
     return false;
   });
+
+
+  socket.emit('add-user', { nickName: "{{nickName}}" } );
+
 
   var sendMessage = function(){
     var message = $('#message').val();
@@ -36,6 +41,16 @@ window.addEventListener('load', function(){
     console.log('new-message', data.message);
 
     $('#all-messages').append('<div class="alert alert-warning"><i class="fa fa-user-circle-o"></i> ' + data.nickName + ':' + data.message + '</div>');
+    $('html, body').animate({ scrollTop: 3000 }, 'slow');
+
+    // TODO: Change this to another function - and use the HANDLEBARS LOOp FEATURE
+    $('#users-total').html(data.users.length);
+    var list = '';
+    $.each(data.users, function(index, item) {
+      list += '<li class="list-group-item">' + item.nickName + '</li>';
+    });    
+    $('#users-list ul').html(list);
+
   });
 
   // logout
