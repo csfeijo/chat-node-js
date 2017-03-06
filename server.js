@@ -1,18 +1,20 @@
 var express = require('express'),
-    path = require('path'),
+    bodyParser = require('body-parser'),
     app = express(),
-    hbs = require('express-handlebars');
+    server = require('http').createServer(app),
+    io = require('socket.io')(server),
+    hbs = require('express-handlebars'),
+    path = require('path');
 
 app.engine('handlebars', hbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
-app.route('/welcome')
-  .get(function (req, res) {
-    res.render('welcome', { name: "Cícero Feijó" });
-});
+require('./module.routes.js')({ app: app });
 
-app.listen(8080, function() {
-  console.log('Server Running...');
-} );
+require('./module.io.js')({ io : io });
+
+server.listen(8080);
