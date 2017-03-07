@@ -1,0 +1,9 @@
+#the-chat {
+  background: linear-gradient(135deg, #fab000 0%,#feed01 100%);
+
+  #dialog-chat {
+    min-height: 350px;
+    max-height: 350px;
+    overflow: auto;
+  }
+}

@@ -1,0 +1,22 @@
+#control-chat-panel {
+  /*
+  position: fixed;
+  bottom: 0;
+  max-width: 1120px;
+  width: 100%;
+  */
+}
+
+#control-chat-panel {
+  #message { 
+    padding: 33px 10px;
+    resize: none;
+  }
+}
+
+#control-chat-panel {
+  .btn-send-msg {
+    font-size: 36px;
+    outline: none;
+  }
+}

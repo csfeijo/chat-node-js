@@ -1,14 +1,17 @@
 <div class="panel panel-default" id="chat-login">
-  <h3 class="text-center">Chat Login</h3>
+  <h2 class="text-center">Sign In</h2>
   <div class="panel-body" id="all-messages">
     <form id="form-chat-login" method="POST" action="/chat">
-      <div class="form-group">
-        <label for="nick-name">Nick Name</label>
+
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-user"></i></span>
         <input type="text" class="form-control" id="nick-name" name="nick-name" placeholder="Nick Name" value="">
+        <span class="input-group-addon btn btn-default" id="btn-chat-login" name="btn-chat-login">login</span>
       </div>
-      <div class="form-group text-center">
-        <button type="button" id="btn-chat-login" name="btn-chat-login" class="btn btn-default btn-primary">ENTER</button>
-      </div>
+      <div class="clear"></div>
+      <div class="text-center credits">
+        <a href="http://github.com/csfeijo" target="_blank">github.com/csfeijo</a>
+      </div>  
     </form>
   </div>
 </div>
@@ -16,13 +19,19 @@
 <script>
 window.addEventListener('load', function(){
   $('#nick-name').focus();
-  
-  $('#btn-chat-login').click(function(){
-    var nickName = $('#nick-name').val();
 
+  $('#btn-chat-login').click(function(){$('#form-chat-login').submit()});
+
+  $('#form-chat-login').submit(function(){
+
+    // validate nickname
+    var nickName = $('#nick-name').val();
     if(nickName != '') {
-      $('#form-chat-login').submit();
-    }
+      return true;
+    } 
+
+    return false;
   });
+
 });
 </script>
